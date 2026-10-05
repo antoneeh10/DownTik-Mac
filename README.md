@@ -109,11 +109,10 @@ Click on the **Actions** tab located on the top navigation row bar of your perso
 
 #### Step 8: Unlocking Workflow Restrictions
 Because this is a cloned project configuration, GitHub blocks action scripts by default. Click the large green statement block button to grant active execution privileges.
-![Granting Actions Clearances Control](git-assets/screenshots/8.png)
 
 #### Step 9: Accessing the Build Control Environment
 After granting access privileges, the workflow tracking engine clears into an active dashboard layout ready for run deployments.
-![Actions Enabled Dashboard](git-assets/screenshots/9.png)
+![Actions Enabled Dashboard](git-assets/screenshots/8.png)
 
 #### Step 10: Selecting the Build Target Module
 Under the action directory menu items listed on the left sidebar layout, look for the automated build modules and click on **"Build macOS DMG"**.
