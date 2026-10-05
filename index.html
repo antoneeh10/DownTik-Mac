@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>DownTik</title>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Google Material Symbols Outlined -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --card-border: #30363d;
+      --text-main: #f0f6fc;
+      --text-sub: #8b949e;
+      --accent-blue: #a5d6ff;
+      --accent-blue-bg: #1f6feb;
+      --button-bg: #abc7ff;
+      --button-text: #002d6d;
+      --pill-active-bg: #004a77;
+      --pill-active-icon: #c2e7ff;
+      --input-bg: #0d1117;
+      --chip-selected: #1f6feb;
+      --chip-selected-text: #ffffff;
+      --chip-unselected: #21262d;
+      --sidebar-width: 240px;
+    }
+
+    [data-theme="light"] {
+      --bg-color: #f6f8fa;
+      --card-bg: #ffffff;
+      --card-border: #d0d7de;
+      --text-main: #1f2328;
+      --text-sub: #656d76;
+      --accent-blue: #0969da;
+      --accent-blue-bg: #ddf4ff;
+      --button-bg: #0969da;
+      --button-text: #ffffff;
+      --pill-active-bg: #ddf4ff;
+      --pill-active-icon: #0969da;
+      --input-bg: #f6f8fa;
+      --chip-selected: #0969da;
+      --chip-selected-text: #ffffff;
+      --chip-unselected: #eaeeef;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      user-select: none;
+    }
+
+    /* Container Utama */
+    .app-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      position: relative;
+      background-color: var(--bg-color);
+    }
+
+    /* Sidebar Navigation */
+    .sidebar-nav {
+      width: var(--sidebar-width);
+      height: 100%;
+      background-color: var(--bg-color);
+      border-right: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      padding: 24px 16px;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-brand {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+      padding-left: 8px;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--text-sub);
+      transition: all 0.2s ease;
+    }
+
+    .nav-item .nav-pill {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-item.active {
+      background-color: var(--pill-active-bg);
+      color: var(--pill-active-icon);
+      font-weight: 700;
+    }
+
+    .nav-item:hover:not(.active) {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+    }
+
+    .nav-label {
+      font-size: 15px;
+    }
+
+    /* Content Area */
+    .content-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      width: calc(100vw - var(--sidebar-width));
+    }
+
+    /* Top Navigation Bar */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 16px 24px;
+      background-color: var(--bg-color);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      z-index: 10;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+
+    .icon-btn:active, .icon-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Main Content Body - DIUBAH AGAR PRESISI DI TENGAH */
+    .main-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* PAGE MAX WIDTH DIBATASI SUPAYA TIDAK MELEBAR SEPERTI WEB DESKTOP */
+    .page {
+      display: none;
+      flex-direction: column;
+      animation: fadeIn 0.25s ease-in-out;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .page.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.4;
+    }
+
+    /* Form & Inputs */
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 16px;
+      width: 100%;
+    }
+
+    .input-label-floating {
+      position: absolute;
+      top: -10px;
+      left: 16px;
+      background-color: var(--bg-color);
+      padding: 0 6px;
+      font-size: 12px;
+      color: var(--accent-blue);
+      font-weight: 600;
+      z-index: 2;
+    }
+
+    .input-box {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      background-color: var(--bg-color);
+      border: 1px solid var(--accent-blue);
+      border-radius: 16px;
+      padding: 14px 18px;
+      gap: 12px;
+    }
+
+    .input-box input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text-main);
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .input-box input::placeholder {
+      color: var(--text-sub);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      border: none;
+      border-radius: 16px;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: opacity 0.2s, transform 0.1s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .btn-submit:active {
+      opacity: 0.85;
+      transform: scale(0.99);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Result Card */
+    .result-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 20px;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .media-info {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .thumb-container {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      border-radius: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background-color: #000;
+      cursor: pointer;
+    }
+
+    .thumb-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .play-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .play-icon-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    .duration-badge {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .media-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .media-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .media-author {
+      font-size: 13px;
+      color: var(--accent-blue);
+      font-weight: 600;
+    }
+
+    .media-meta {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .quality-options {
+      display: flex;
+      gap: 12px;
+    }
+
+    .chip-btn {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background-color: var(--chip-unselected);
+      color: var(--text-main);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .chip-btn.active {
+      background-color: var(--chip-selected);
+      color: var(--chip-selected-text);
+      border-color: var(--chip-selected);
+    }
+
+    /* Progress & Status Card */
+    .progress-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 20px;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .progress-title {
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .progress-percent {
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--accent-blue);
+    }
+
+    .wavy-progress-container {
+      width: 100%;
+      height: 14px;
+      overflow: hidden;
+      position: relative;
+      background: var(--chip-unselected);
+      border-radius: 8px;
+    }
+
+    .wavy-progress-bar {
+      height: 100%;
+      background-color: var(--accent-blue);
+      border-radius: 8px;
+      transition: width 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wavy-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.4);
+      stroke-width: 3;
+      animation: waveMove 1.5s linear infinite;
+    }
+
+    @keyframes waveMove {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .status-text {
+      font-size: 12px;
+      color: var(--text-sub);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .empty-state {
+      text-align: center;
+      color: var(--text-sub);
+      font-size: 14px;
+      margin-top: 40px;
+      line-height: 1.6;
+    }
+
+    .empty-icon-circle {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background-color: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      color: var(--text-sub);
+    }
+
+    /* Modal Sheet Overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      width: 100%;
+      max-width: 400px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .modal-icon-header {
+      color: var(--accent-blue);
+      display: flex;
+      justify-content: center;
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .modal-desc {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .btn-text {
+      background: none;
+      border: none;
+      color: var(--accent-blue);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 16px;
+      cursor: pointer;
+      border-radius: 12px;
+    }
+
+    .btn-text:active {
+      background-color: rgba(255,255,255,0.05);
+    }
+
+    .btn-pill-small {
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      border: none;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .donation-option {
+      background-color: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      color: var(--text-main);
+      text-align: left;
+    }
+
+    /* Subpage Header */
+    .subpage-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .subpage-title {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    /* Settings Group */
+    .settings-group {
+      margin-bottom: 24px;
+      width: 100%;
+    }
+
+    .settings-group-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-blue);
+      margin-bottom: 12px;
+    }
+
+    .settings-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .settings-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--card-border);
+      cursor: pointer;
+    }
+
+    .settings-item:last-child {
+      border-bottom: none;
+    }
+
+    .settings-item-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .radio-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--text-sub);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .radio-circle.selected {
+      border-color: var(--accent-blue);
+    }
+
+    .radio-circle.selected::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--accent-blue);
+    }
+
+    /* =========================================================
+       NATIVE MATERIAL 3 VIDEO PLAYER CUSTOM STYLES
+       ========================================================= */
+    .video-dialog-content {
+      width: 100%;
+      max-width: 420px;
+      background-color: #000;
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--card-border);
+    }
+
+    .m3-player-wrapper {
+      position: relative;
+      width: 100%;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      aspect-ratio: 9/16;
+      max-height: 70vh;
+    }
+
+    .m3-player-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Material 3 Player Overlay & Controls */
+    .m3-controls-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.4) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .m3-controls-overlay.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .m3-top-bar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .m3-center-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .m3-play-btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.15s ease;
+    }
+
+    .m3-play-btn:active {
+      transform: scale(0.92);
+    }
+
+    .m3-play-btn .material-symbols-outlined {
+      font-size: 36px;
+    }
+
+    .m3-bottom-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .m3-progress-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .m3-time-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      font-mono: true;
+      white-space: nowrap;
+    }
+
+    /* M3 Custom Slider / Progress Bar */
+    .m3-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.3);
+      outline: none;
+      cursor: pointer;
+      transition: height 0.1s ease;
+    }
+
+    .m3-slider:hover {
+      height: 8px;
+    }
+
+    .m3-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent-blue);
+      cursor: pointer;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+    }
+
+    .m3-slider::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent-blue);
+      cursor: pointer;
+      border: none;
+    }
+
+    .close-video-btn {
+      background: rgba(0, 0, 0, 0.6);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .close-video-btn:hover {
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    /* Mobile Responsive Adaptation */
+    @media (max-width: 768px) {
+      .app-container {
+        flex-direction: column;
+      }
+      .sidebar-nav {
+        width: 100%;
+        height: 64px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-right: none;
+        border-top: 1px solid var(--card-border);
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 0;
+        z-index: 20;
+      }
+      .sidebar-brand {
+        display: none;
+      }
+      .nav-list {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+      }
+      .nav-item {
+        flex-direction: column;
+        gap: 4px;
+        padding: 8px;
+        border-radius: 0;
+        background: none !important;
+      }
+      .nav-item.active {
+        color: var(--accent-blue);
+      }
+      .nav-label {
+        font-size: 11px;
+      }
+      .content-wrapper {
+        width: 100vw;
+        padding-bottom: 70px;
+      }
+      .main-content {
+        padding: 16px;
+      }
+      .thumb-container {
+        width: 95px;
+        height: 95px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Sidebar Menu -->
+    <aside class="sidebar-nav">
+      <div class="sidebar-brand">DownTik</div>
+      <div class="nav-list">
+        <div class="nav-item active" data-target="page-video">
+          <div class="nav-pill">
+            <span class="material-symbols-outlined">download</span>
+          </div>
+          <span class="nav-label">Video</span>
+        </div>
+        <div class="nav-item" data-target="page-audio">
+          <div class="nav-pill">
+            <span class="material-symbols-outlined">music_note</span>
+          </div>
+          <span class="nav-label">Audio</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Content Area -->
+    <div class="content-wrapper">
+      
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <div class="top-actions">
+          <button class="icon-btn" id="btn-donate" title="Donasi">
+            <span class="material-symbols-outlined">favorite</span>
+          </button>
+          <button class="icon-btn" id="btn-ads" title="Iklan">
+            <span class="material-symbols-outlined">campaign</span>
+          </button>
+          <button class="icon-btn" id="btn-history-top" title="Riwayat">
+            <span class="material-symbols-outlined">history</span>
+          </button>
+          <button class="icon-btn" id="btn-settings-top" title="Pengaturan">
+            <span class="material-symbols-outlined">settings</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Views -->
+      <main class="main-content">
+
+        <!-- PAGE: VIDEO DOWNLOAD -->
+        <section id="page-video" class="page active">
+          <div class="section-header">
+            <h1 class="section-title">Download Video</h1>
+            <p class="section-subtitle">Tempel link video untuk mulai mengunduh secara instan</p>
+          </div>
+
+          <div class="input-wrapper">
+            <span class="input-label-floating" id="lbl-video-url" style="display:none;">Video URL</span>
+            <div class="input-box">
+              <span class="material-symbols-outlined" style="color: var(--text-sub);">link</span>
+              <input type="text" id="input-video-url" placeholder="Tempel URL Video TikTok..." autocomplete="off">
+              <button class="icon-btn" id="btn-clear-video" style="display:none;">
+                <span class="material-symbols-outlined">close</span>
+              </button>
+              <button class="icon-btn" id="btn-paste-video">
+                <span class="material-symbols-outlined">content_paste</span>
+              </button>
+            </div>
+          </div>
+
+          <button class="btn-submit" id="btn-get-video">
+            <span class="material-symbols-outlined">download</span>
+            <span>Get Video</span>
+          </button>
+
+          <!-- Result Card Video -->
+          <div id="video-result-container"></div>
+
+          <!-- Download Progress Video -->
+          <div id="video-progress-container"></div>
+
+          <!-- Empty Placeholder -->
+          <div id="video-empty-placeholder" class="empty-state">
+            Hasil video dan opsi download akan tampil di sini secara dinamis.
+          </div>
+        </section>
+
+        <!-- PAGE: AUDIO EXTRACTION -->
+        <section id="page-audio" class="page">
+          <div class="section-header">
+            <h1 class="section-title">Ekstrak Audio</h1>
+            <p class="section-subtitle">Tempel link video untuk mengekstrak lagu / audio (M4A/MP3)</p>
+          </div>
+
+          <div class="input-wrapper">
+            <span class="input-label-floating" id="lbl-audio-url" style="display:none;">Video URL</span>
+            <div class="input-box">
+              <span class="material-symbols-outlined" style="color: var(--text-sub);">link</span>
+              <input type="text" id="input-audio-url" placeholder="Tempel URL Video TikTok..." autocomplete="off">
+              <button class="icon-btn" id="btn-clear-audio" style="display:none;">
+                <span class="material-symbols-outlined">close</span>
+              </button>
+              <button class="icon-btn" id="btn-paste-audio">
+                <span class="material-symbols-outlined">content_paste</span>
+              </button>
+            </div>
+          </div>
+
+          <button class="btn-submit" id="btn-get-audio">
+            <span class="material-symbols-outlined">music_note</span>
+            <span>Get Audio</span>
+          </button>
+
+          <!-- Result Card Audio -->
+          <div id="audio-result-container"></div>
+
+          <!-- Download Progress Audio -->
+          <div id="audio-progress-container"></div>
+
+          <!-- Empty Placeholder -->
+          <div id="audio-empty-placeholder" class="empty-state">
+            Hasil video dan tombol ekstrak audio akan tampil di sini.
+          </div>
+        </section>
+
+        <!-- PAGE: SETTINGS -->
+        <section id="page-settings" class="page">
+          <div class="subpage-header">
+            <button class="icon-btn" id="btn-back-settings">
+              <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <h2 class="subpage-title">Settings</h2>
+          </div>
+
+          <div class="settings-group">
+            <div class="settings-group-title">Tampilan</div>
+            <div class="settings-card">
+              <div class="settings-item" data-theme-val="system">
+                <div class="settings-item-left">
+                  <span class="material-symbols-outlined">auto_awesome</span>
+                  <span>Ikuti Sistem</span>
+                </div>
+                <div class="radio-circle" id="radio-system"></div>
+              </div>
+              <div class="settings-item" data-theme-val="light">
+                <div class="settings-item-left">
+                  <span class="material-symbols-outlined">light_mode</span>
+                  <span>Mode Terang</span>
+                </div>
+                <div class="radio-circle" id="radio-light"></div>
+              </div>
+              <div class="settings-item" data-theme-val="dark">
+                <div class="settings-item-left">
+                  <span class="material-symbols-outlined">dark_mode</span>
+                  <span>Mode Gelap</span>
+                </div>
+                <div class="radio-circle" id="radio-dark"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-group">
+            <div class="settings-group-title">Language</div>
+            <div class="settings-card">
+              <div class="settings-item" data-lang-val="id">
+                <div class="settings-item-left">
+                  <span class="material-symbols-outlined">language</span>
+                  <span>Bahasa Indonesia</span>
+                </div>
+                <div class="radio-circle selected" id="radio-lang-id"></div>
+              </div>
+              <div class="settings-item" data-lang-val="en">
+                <div class="settings-item-left">
+                  <span class="material-symbols-outlined">language</span>
+                  <span>English</span>
+                </div>
+                <div class="radio-circle" id="radio-lang-en"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-group">
+            <div class="settings-group-title">Tentang</div>
+            <div class="settings-card" style="padding:20px; display:flex; flex-direction:column; gap:12px;">
+              <div style="display:flex; align-items:center; gap:12px;">
+                <span class="material-symbols-outlined" style="color:var(--accent-blue);">info</span>
+                <div>
+                  <div style="font-size:16px; font-weight:800;">DownTik</div>
+                  <div style="font-size:12px; color:var(--text-sub);">Versi 1.0.0-linux • Channel: Stable</div>
+                </div>
+              </div>
+              <p style="font-size:13px; color:var(--text-sub); line-height:1.5;">
+                DownTik didesain dengan Material Design 3 untuk pengalaman download video dan ekstraksi audio yang cepat, bersih, tanpa watermark, dan aman.
+              </p>
+              <a href="https://github.com/antoneeh10/DownTik-Linux" target="_blank" class="btn-submit" style="background:var(--chip-unselected); color:var(--text-main); font-size:14px; padding:12px; border:1px solid var(--card-border); text-decoration:none; margin-top:6px;">
+                <span class="material-symbols-outlined">open_in_new</span>
+                <span>Buka Repositori GitHub</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- PAGE: HISTORY -->
+        <section id="page-history" class="page">
+          <div class="subpage-header">
+            <button class="icon-btn" id="btn-back-history">
+              <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <h2 class="subpage-title">Download History</h2>
+          </div>
+
+          <div id="history-list" style="display:flex; flex-direction:column; gap:12px; width: 100%;"></div>
+
+          <div id="history-empty" class="empty-state" style="margin-top:60px;">
+            <div class="empty-icon-circle">
+              <span class="material-symbols-outlined" style="font-size:32px;">history</span>
+            </div>
+            <div style="font-size:18px; font-weight:700; color:var(--text-main); margin-bottom:8px;">Belum Ada Riwayat</div>
+            <p style="max-width:320px; margin:0 auto; font-size:13px;">
+              File video dan audio yang berhasil diunduh atau diekstrak akan tercatat di sini sehingga Anda dapat membukanya kembali kapan saja.
+            </p>
+          </div>
+        </section>
+
+      </main>
+
+    </div>
+  </div>
+
+  <!-- MODALS -->
+
+  <!-- Modal: Donate -->
+  <div class="modal-overlay" id="modal-donate">
+    <div class="modal-card">
+      <div class="modal-icon-header">
+        <span class="material-symbols-outlined" style="font-size:36px; color:var(--accent-blue);">favorite</span>
+      </div>
+      <div class="modal-title">Donasi</div>
+      <div class="modal-desc">
+        Berikan donasi untuk fitur baru aplikasi DownTik dan domain web. kalau gak ada, gakpapa, gak dipaksa kok :)
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <a href="https://saweria.co/tkzrdnote" target="_blank" class="donation-option">
+          <div>
+            <div style="font-weight:700; font-size:15px; display:flex; align-items:center; gap:6px;">
+              <span class="material-symbols-outlined" style="font-size:18px;">account_balance_wallet</span>Saweria
+            </div>
+            <div style="font-size:12px; color:var(--text-sub);">Untuk pengguna Indonesia</div>
+          </div>
+          <span class="material-symbols-outlined" style="color:var(--text-sub);">open_in_new</span>
+        </a>
+        <a href="https://sociabuzz.com/tkzrdnote/tribe" target="_blank" class="donation-option">
+          <div>
+            <div style="font-weight:700; font-size:15px; display:flex; align-items:center; gap:6px;">
+              <span class="material-symbols-outlined" style="font-size:18px;">public</span>SociaBuzz
+            </div>
+            <div style="font-size:12px; color:var(--text-sub);">Untuk pengguna dalam dan luar negeri</div>
+          </div>
+          <span class="material-symbols-outlined" style="color:var(--text-sub);">open_in_new</span>
+        </a>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-text" id="btn-close-donate">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Ads -->
+  <div class="modal-overlay" id="modal-ads">
+    <div class="modal-card">
+      <div class="modal-icon-header">
+        <span class="material-symbols-outlined" style="font-size:36px;">campaign</span>
+      </div>
+      <div class="modal-title">See an Ads</div>
+      <div class="modal-desc">
+        Lihat satu iklan untuk membantu mendukung pengembangan DownTik? Anda akan diarahkan ke halaman See an Ads.
+      </div>
+      <div class="modal-actions">
+        <button class="btn-text" id="btn-close-ads">Batal</button>
+        <button class="btn-pill-small" id="btn-confirm-ads">Lanjutkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Video Preview (MATERIAL 3 NATIVE PLAYER) -->
+  <div class="modal-overlay" id="modal-preview">
+    <div class="video-dialog-content">
+      <div class="m3-player-wrapper" id="m3-player-container">
+        <video id="preview-video-player" playsinline></video>
+        
+        <!-- Controls Overlay -->
+        <div class="m3-controls-overlay" id="m3-controls">
+          <div class="m3-top-bar">
+            <button class="close-video-btn" id="btn-close-preview" aria-label="Tutup Preview">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+          </div>
+
+          <div class="m3-center-controls">
+            <button class="m3-play-btn" id="m3-play-pause-btn">
+              <span class="material-symbols-outlined" id="m3-play-icon">play_arrow</span>
+            </button>
+          </div>
+
+          <div class="m3-bottom-bar">
+            <div class="m3-progress-wrapper">
+              <span class="m3-time-text" id="m3-current-time">00:00</span>
+              <input type="range" class="m3-slider" id="m3-seek-bar" value="0" min="0" max="100">
+              <span class="m3-time-text" id="m3-duration">00:00</span>
+              <button class="icon-btn" id="m3-fullscreen-btn" style="color:#fff;">
+                <span class="material-symbols-outlined">fullscreen</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    // App State
+    const state = {
+      theme: localStorage.getItem('downtik_theme') || 'system',
+      lang: 'id',
+      history: JSON.parse(localStorage.getItem('downtik_history') || '[]'),
+      currentVideoData: null,
+      currentAudioData: null,
+      videoQuality: 'hd'
+    };
+
+    // DOM Elements
+    const pages = document.querySelectorAll('.page');
+    const navItems = document.querySelectorAll('.nav-item');
+
+    // Navigation Switcher
+    function navigateTo(pageId) {
+      pages.forEach(p => p.classList.remove('active'));
+      const targetPage = document.getElementById(pageId);
+      if(targetPage) targetPage.classList.add('active');
+
+      navItems.forEach(item => {
+        if(item.dataset.target === pageId) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      if(pageId === 'page-history') {
+        renderHistory();
+      }
+    }
+
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        navigateTo(item.dataset.target);
+      });
+    });
+
+    document.getElementById('btn-history-top').addEventListener('click', () => navigateTo('page-history'));
+    document.getElementById('btn-settings-top').addEventListener('click', () => navigateTo('page-settings'));
+    document.getElementById('btn-back-settings').addEventListener('click', () => navigateTo('page-video'));
+    document.getElementById('btn-back-history').addEventListener('click', () => navigateTo('page-video'));
+
+    // Modals
+    const modalDonate = document.getElementById('modal-donate');
+    const modalAds = document.getElementById('modal-ads');
+    const modalPreview = document.getElementById('modal-preview');
+
+    document.getElementById('btn-donate').addEventListener('click', () => modalDonate.classList.add('active'));
+    document.getElementById('btn-close-donate').addEventListener('click', () => modalDonate.classList.remove('active'));
+
+    document.getElementById('btn-ads').addEventListener('click', () => modalAds.classList.add('active'));
+    document.getElementById('btn-close-ads').addEventListener('click', () => modalAds.classList.remove('active'));
+    document.getElementById('btn-confirm-ads').addEventListener('click', () => {
+      modalAds.classList.remove('active');
+      window.open('https://seeanads-downtik.vwebapp.workers.dev', '_blank');
+    });
+
+    // --- MATERIAL 3 NATIVE PLAYER LOGIC ---
+    const videoPlayer = document.getElementById('preview-video-player');
+    const playPauseBtn = document.getElementById('m3-play-pause-btn');
+    const playIcon = document.getElementById('m3-play-icon');
+    const seekBar = document.getElementById('m3-seek-bar');
+    const currentTimeText = document.getElementById('m3-current-time');
+    const durationText = document.getElementById('m3-duration');
+    const controlsOverlay = document.getElementById('m3-controls');
+    const fullscreenBtn = document.getElementById('m3-fullscreen-btn');
+    const playerContainer = document.getElementById('m3-player-container');
+
+    let controlsTimeout;
+
+    function openPreview(videoUrl) {
+      videoPlayer.src = videoUrl;
+      modalPreview.classList.add('active');
+      videoPlayer.play();
+      playIcon.innerText = 'pause';
+      showControls();
+    }
+
+    function closeVideoPreview() {
+      videoPlayer.pause();
+      videoPlayer.src = '';
+      modalPreview.classList.remove('active');
+    }
+
+    function showControls() {
+      controlsOverlay.classList.remove('hide');
+      clearTimeout(controlsTimeout);
+      controlsTimeout = setTimeout(() => {
+        if(!videoPlayer.paused) {
+          controlsOverlay.classList.add('hide');
+        }
+      }, 3000);
+    }
+
+    playerContainer.addEventListener('click', (e) => {
+      if (e.target.closest('#m3-controls') && !e.target.classList.contains('m3-controls-overlay')) return;
+      if (controlsOverlay.classList.contains('hide')) {
+        showControls();
+      } else {
+        controlsOverlay.classList.add('hide');
+      }
+    });
+
+    playPauseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (videoPlayer.paused) {
+        videoPlayer.play();
+        playIcon.innerText = 'pause';
+      } else {
+        videoPlayer.pause();
+        playIcon.innerText = 'play_arrow';
+      }
+      showControls();
+    });
+
+    videoPlayer.addEventListener('timeupdate', () => {
+      if (!isNaN(videoPlayer.duration)) {
+        const progress = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+        seekBar.value = progress;
+        currentTimeText.innerText = formatDuration(videoPlayer.currentTime);
+        durationText.innerText = formatDuration(videoPlayer.duration);
+      }
+    });
+
+    seekBar.addEventListener('input', () => {
+      if (!isNaN(videoPlayer.duration)) {
+        const time = (seekBar.value / 100) * videoPlayer.duration;
+        videoPlayer.currentTime = time;
+      }
+    });
+
+    fullscreenBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (videoPlayer.requestFullscreen) {
+        videoPlayer.requestFullscreen();
+      } else if (videoPlayer.webkitRequestFullscreen) {
+        videoPlayer.webkitRequestFullscreen();
+      }
+    });
+
+    document.getElementById('btn-close-preview').addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeVideoPreview();
+    });
+
+    modalPreview.addEventListener('click', (e) => {
+      if(e.target === modalPreview) {
+        closeVideoPreview();
+      }
+    });
+
+    // Input Handlers
+    function setupInputHandlers(inputId, clearBtnId, labelId) {
+      const input = document.getElementById(inputId);
+      const clearBtn = document.getElementById(clearBtnId);
+      const label = document.getElementById(labelId);
+
+      input.addEventListener('input', () => {
+        if(input.value.trim().length > 0) {
+          clearBtn.style.display = 'flex';
+          label.style.display = 'block';
+        } else {
+          clearBtn.style.display = 'none';
+          label.style.display = 'none';
+        }
+      });
+
+      clearBtn.addEventListener('click', () => {
+        input.value = '';
+        clearBtn.style.display = 'none';
+        label.style.display = 'none';
+        input.focus();
+      });
+    }
+
+    setupInputHandlers('input-video-url', 'btn-clear-video', 'lbl-video-url');
+    setupInputHandlers('input-audio-url', 'btn-clear-audio', 'lbl-audio-url');
+
+    // Clipboard Paste
+    async function handlePaste(inputId, clearBtnId, labelId) {
+      try {
+        const text = await navigator.clipboard.readText();
+        if(text) {
+          const input = document.getElementById(inputId);
+          input.value = text;
+          document.getElementById(clearBtnId).style.display = 'flex';
+          document.getElementById(labelId).style.display = 'block';
+        }
+      } catch (e) {
+        alert('Gagal membaca clipboard. Silakan tempel secara manual.');
+      }
+    }
+
+    document.getElementById('btn-paste-video').addEventListener('click', () => handlePaste('input-video-url', 'btn-clear-video', 'lbl-video-url'));
+    document.getElementById('btn-paste-audio').addEventListener('click', () => handlePaste('input-audio-url', 'btn-clear-audio', 'lbl-audio-url'));
+
+    // Theme Engine
+    function applyTheme(theme) {
+      state.theme = theme;
+      localStorage.setItem('downtik_theme', theme);
+      
+      document.getElementById('radio-system').classList.remove('selected');
+      document.getElementById('radio-light').classList.remove('selected');
+      document.getElementById('radio-dark').classList.remove('selected');
+
+      if(theme === 'system') {
+        document.getElementById('radio-system').classList.add('selected');
+        const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', isSystemDark ? 'dark' : 'light');
+      } else {
+        document.getElementById(`radio-${theme}`).classList.add('selected');
+        document.documentElement.setAttribute('data-theme', theme);
+      }
+    }
+
+    document.querySelectorAll('[data-theme-val]').forEach(item => {
+      item.addEventListener('click', () => {
+        applyTheme(item.dataset.themeVal);
+      });
+    });
+
+    applyTheme(state.theme);
+
+    // Helpers
+    function formatDuration(seconds) {
+      if(!seconds || isNaN(seconds)) return '00:00';
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60);
+      return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function formatBytes(bytes) {
+      if (!bytes || bytes === 0) return '1.3 MB';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+    }
+
+    async function fetchTikTokData(url) {
+      const response = await fetch(`https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`);
+      const data = await response.json();
+      if(data.code === 0) {
+        return data.data;
+      } else {
+        throw new Error(data.msg || 'Gagal mengambil data video.');
+      }
+    }
+
+    // --- VIDEO SECTION ---
+    const btnGetVideo = document.getElementById('btn-get-video');
+    const videoResultContainer = document.getElementById('video-result-container');
+    const videoProgressContainer = document.getElementById('video-progress-container');
+    const videoEmptyPlaceholder = document.getElementById('video-empty-placeholder');
+
+    btnGetVideo.addEventListener('click', async () => {
+      const url = document.getElementById('input-video-url').value.trim();
+      if(!url) {
+        alert('Silakan masukkan URL video TikTok terlebih dahulu.');
+        return;
+      }
+
+      btnGetVideo.disabled = true;
+      btnGetVideo.innerHTML = `<span class="material-symbols-outlined spin">sync</span> Process...`;
+
+      try {
+        const data = await fetchTikTokData(url);
+        state.currentVideoData = data;
+        videoEmptyPlaceholder.style.display = 'none';
+        videoProgressContainer.innerHTML = '';
+        renderVideoResult(data);
+      } catch (err) {
+        alert(err.message || 'Terjadi kesalahan. Pastikan link valid.');
+      } finally {
+        btnGetVideo.disabled = false;
+        btnGetVideo.innerHTML = `<span class="material-symbols-outlined">download</span> Get Video`;
+      }
+    });
+
+    function renderVideoResult(data) {
+      const durationStr = formatDuration(data.duration);
+      const titleText = data.title || '#tiktok #video';
+      const authorText = data.author ? `@${data.author.unique_id}` : '@user';
+
+      videoResultContainer.innerHTML = `
+        <div class="result-card">
+          <div class="media-info">
+            <div class="thumb-container" onclick="openPreview('${data.play}')">
+              <img src="${data.cover}" alt="Thumbnail">
+              <div class="play-overlay">
+                <div class="play-icon-circle"><span class="material-symbols-outlined">play_arrow</span></div>
+              </div>
+              <div class="duration-badge">${durationStr}</div>
+            </div>
+            <div class="media-details">
+              <div class="media-title">${titleText}</div>
+              <div class="media-author">${authorText}</div>
+              <div class="media-meta">Ketuk thumbnail untuk preview video</div>
+            </div>
+          </div>
+
+          <div class="quality-options">
+            <button class="chip-btn ${state.videoQuality === 'hd' ? 'active' : ''}" id="chip-hd">
+              <span class="material-symbols-outlined">auto_awesome</span> Kualitas HD
+            </button>
+            <button class="chip-btn ${state.videoQuality === 'sd' ? 'active' : ''}" id="chip-sd">
+              Standar (Hemat Kuota)
+            </button>
+          </div>
+
+          <button class="btn-submit" id="btn-download-video-now">
+            <span class="material-symbols-outlined">download</span>
+            <span>Download (${state.videoQuality === 'hd' ? 'HD No Watermark' : 'Standar'})</span>
+          </button>
+        </div>
+      `;
+
+      document.getElementById('chip-hd').addEventListener('click', () => {
+        state.videoQuality = 'hd';
+        renderVideoResult(data);
+      });
+
+      document.getElementById('chip-sd').addEventListener('click', () => {
+        state.videoQuality = 'sd';
+        renderVideoResult(data);
+      });
+
+      document.getElementById('btn-download-video-now').addEventListener('click', () => {
+        startVideoDownload(data);
+      });
+    }
+
+    function startVideoDownload(data) {
+      const downloadUrl = (state.videoQuality === 'hd' && data.hdplay) ? data.hdplay : data.play;
+      const fileName = `${(data.title || 'video').substring(0,20).replace(/[^a-zA-Z0-9]/g, "_")}.mp4`;
+
+      videoProgressContainer.innerHTML = `
+        <div class="progress-card">
+          <div class="progress-header">
+            <div class="progress-title">
+              <span class="material-symbols-outlined spin" style="color:var(--accent-blue);">sync</span> Downloading...
+            </div>
+            <div class="progress-percent" id="video-progress-percent">0%</div>
+          </div>
+          <div class="wavy-progress-container">
+            <div class="wavy-progress-bar" id="video-progress-bar" style="width: 0%;">
+              <svg class="wavy-svg" viewBox="0 0 1200 20" preserveAspectRatio="none">
+                <path d="M 0,10 C 150,20 350,0 500,10 C 650,20 850,0 1000,10 C 1150,20 1350,0 1500,10 L 1500,20 L 0,20 Z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="status-text">
+            <span>Menyiapkan file...</span>
+            <span id="video-size-status">0 / ${formatBytes(data.size)}</span>
+          </div>
+        </div>
+      `;
+
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 15) + 10;
+        if(progress >= 100) {
+          progress = 100;
+          clearInterval(interval);
+          completeVideoDownload(data, downloadUrl, fileName);
+        }
+        document.getElementById('video-progress-bar').style.width = `${progress}%`;
+        document.getElementById('video-progress-percent').innerText = `${progress}%`;
+      }, 250);
+    }
+
+    function completeVideoDownload(data, downloadUrl, fileName) {
+      fetch(downloadUrl)
+        .then(res => res.blob())
+        .then(blob => {
+          const a = document.createElement('a');
+          const blobUrl = URL.createObjectURL(blob);
+          a.href = blobUrl;
+          a.download = fileName;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(blobUrl);
+        }).catch(() => {
+          window.open(downloadUrl, '_blank');
+        });
+
+      saveHistoryItem({
+        id: Date.now(),
+        type: 'video',
+        title: data.title || 'Video TikTok',
+        author: data.author ? data.author.unique_id : 'user',
+        cover: data.cover,
+        url: downloadUrl,
+        size: formatBytes(data.size),
+        date: new Date().toLocaleDateString('id-ID')
+      });
+
+      videoProgressContainer.innerHTML = `
+        <div class="progress-card" style="text-align:center;">
+          <div style="color:#4caf50; display:flex; justify-content:center; margin-bottom:8px;">
+            <span class="material-symbols-outlined" style="font-size:48px;">check_circle</span>
+          </div>
+          <div style="font-size:18px; font-weight:800; margin-bottom:4px;">Download Complete</div>
+          <div style="font-size:13px; color:var(--text-sub); margin-bottom:16px;">
+            Video berhasil diunduh dan disimpan ke galeri/perangkat Anda.
+          </div>
+          <button class="btn-submit" onclick="resetVideoPage()" style="background:var(--chip-unselected); color:var(--text-main);">
+            <span class="material-symbols-outlined">refresh</span> Download Lagi
+          </button>
+        </div>
+      `;
+    }
+
+    function resetVideoPage() {
+      videoResultContainer.innerHTML = '';
+      videoProgressContainer.innerHTML = '';
+      videoEmptyPlaceholder.style.display = 'block';
+      document.getElementById('input-video-url').value = '';
+      document.getElementById('btn-clear-video').style.display = 'none';
+      document.getElementById('lbl-video-url').style.display = 'none';
+    }
+
+    // --- AUDIO SECTION ---
+    const btnGetAudio = document.getElementById('btn-get-audio');
+    const audioResultContainer = document.getElementById('audio-result-container');
+    const audioProgressContainer = document.getElementById('audio-progress-container');
+    const audioEmptyPlaceholder = document.getElementById('audio-empty-placeholder');
+
+    btnGetAudio.addEventListener('click', async () => {
+      const url = document.getElementById('input-audio-url').value.trim();
+      if(!url) {
+        alert('Silakan masukkan URL video TikTok terlebih dahulu.');
+        return;
+      }
+
+      btnGetAudio.disabled = true;
+      btnGetAudio.innerHTML = `<span class="material-symbols-outlined spin">sync</span> Process...`;
+
+      try {
+        const data = await fetchTikTokData(url);
+        state.currentAudioData = data;
+        audioEmptyPlaceholder.style.display = 'none';
+        audioProgressContainer.innerHTML = '';
+        renderAudioResult(data);
+      } catch (err) {
+        alert(err.message || 'Terjadi kesalahan. Pastikan link valid.');
+      } finally {
+        btnGetAudio.disabled = false;
+        btnGetAudio.innerHTML = `<span class="material-symbols-outlined">music_note</span> Get Audio`;
+      }
+    });
+
+    function renderAudioResult(data) {
+      const musicTitle = data.music_info ? data.music_info.title : 'Audio TikTok';
+      const musicAuthor = data.music_info ? data.music_info.author : 'Original Sound';
+
+      audioResultContainer.innerHTML = `
+        <div class="result-card">
+          <div class="media-info">
+            <div class="thumb-container">
+              <img src="${data.cover}" alt="Cover">
+            </div>
+            <div class="media-details">
+              <div class="media-title">${musicTitle}</div>
+              <div class="media-author">${musicAuthor}</div>
+              <div class="media-meta">Format Audio: MP3 / M4A</div>
+            </div>
+          </div>
+
+          <button class="btn-submit" id="btn-download-audio-now">
+            <span class="material-symbols-outlined">music_note</span>
+            <span>Ekstrak & Download Audio</span>
+          </button>
+        </div>
+      `;
+
+      document.getElementById('btn-download-audio-now').addEventListener('click', () => {
+        startAudioDownload(data);
+      });
+    }
+
+    function startAudioDownload(data) {
+      const audioUrl = data.music || data.play;
+      const fileName = `${(data.music_info?.title || 'audio').substring(0,20).replace(/[^a-zA-Z0-9]/g, "_")}.mp3`;
+
+      audioProgressContainer.innerHTML = `
+        <div class="progress-card">
+          <div class="progress-header">
+            <div class="progress-title">
+              <span class="material-symbols-outlined spin" style="color:var(--accent-blue);">sync</span> Mengekstrak Audio...
+            </div>
+            <div class="progress-percent" id="audio-progress-percent">0%</div>
+          </div>
+          <div class="wavy-progress-container">
+            <div class="wavy-progress-bar" id="audio-progress-bar" style="width: 0%;">
+              <svg class="wavy-svg" viewBox="0 0 1200 20" preserveAspectRatio="none">
+                <path d="M 0,10 C 150,20 350,0 500,10 C 650,20 850,0 1000,10 C 1150,20 1350,0 1500,10 L 1500,20 L 0,20 Z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="status-text">
+            <span>Mengonversi ke MP3...</span>
+          </div>
+        </div>
+      `;
+
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 20) + 10;
+        if(progress >= 100) {
+          progress = 100;
+          clearInterval(interval);
+          completeAudioDownload(data, audioUrl, fileName);
+        }
+        document.getElementById('audio-progress-bar').style.width = `${progress}%`;
+        document.getElementById('audio-progress-percent').innerText = `${progress}%`;
+      }, 200);
+    }
+
+    function completeAudioDownload(data, audioUrl, fileName) {
+      fetch(audioUrl)
+        .then(res => res.blob())
+        .then(blob => {
+          const a = document.createElement('a');
+          const blobUrl = URL.createObjectURL(blob);
+          a.href = blobUrl;
+          a.download = fileName;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(blobUrl);
+        }).catch(() => {
+          window.open(audioUrl, '_blank');
+        });
+
+      saveHistoryItem({
+        id: Date.now(),
+        type: 'audio',
+        title: data.music_info?.title || 'Audio TikTok',
+        author: data.music_info?.author || 'Original Sound',
+        cover: data.cover,
+        url: audioUrl,
+        size: '3.2 MB',
+        date: new Date().toLocaleDateString('id-ID')
+      });
+
+      audioProgressContainer.innerHTML = `
+        <div class="progress-card" style="text-align:center;">
+          <div style="color:#4caf50; display:flex; justify-content:center; margin-bottom:8px;">
+            <span class="material-symbols-outlined" style="font-size:48px;">check_circle</span>
+          </div>
+          <div style="font-size:18px; font-weight:800; margin-bottom:4px;">Audio Extracted</div>
+          <div style="font-size:13px; color:var(--text-sub); margin-bottom:16px;">
+            Audio MP3 berhasil diekstrak dan diunduh.
+          </div>
+          <button class="btn-submit" onclick="resetAudioPage()" style="background:var(--chip-unselected); color:var(--text-main);">
+            <span class="material-symbols-outlined">refresh</span> Ekstrak Lagi
+          </button>
+        </div>
+      `;
+    }
+
+    function resetAudioPage() {
+      audioResultContainer.innerHTML = '';
+      audioProgressContainer.innerHTML = '';
+      audioEmptyPlaceholder.style.display = 'block';
+      document.getElementById('input-audio-url').value = '';
+      document.getElementById('btn-clear-audio').style.display = 'none';
+      document.getElementById('lbl-audio-url').style.display = 'none';
+    }
+
+    // --- HISTORY MANAGEMENT ---
+    function saveHistoryItem(item) {
+      state.history.unshift(item);
+      if(state.history.length > 20) state.history.pop();
+      localStorage.setItem('downtik_history', JSON.stringify(state.history));
+    }
+
+    function renderHistory() {
+      const historyList = document.getElementById('history-list');
+      const historyEmpty = document.getElementById('history-empty');
+
+      if(state.history.length === 0) {
+        historyList.innerHTML = '';
+        historyEmpty.style.display = 'block';
+        return;
+      }
+
+      historyEmpty.style.display = 'none';
+      historyList.innerHTML = state.history.map(item => `
+        <div class="result-card" style="margin-top:0; padding:16px;">
+          <div class="media-info" style="align-items:center;">
+            <img src="${item.cover}" style="width:56px; height:56px; border-radius:10px; object-fit:cover;">
+            <div class="media-details">
+              <div class="media-title" style="font-size:14px;">${item.title}</div>
+              <div class="media-author" style="font-size:12px;">${item.type === 'video' ? 'Video' : 'Audio'} • ${item.date}</div>
+            </div>
+            <a href="${item.url}" target="_blank" class="icon-btn" style="background:var(--button-bg); color:var(--button-text); border-radius:10px; padding:10px;">
+              <span class="material-symbols-outlined">download</span>
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // CSS Keyframe helper
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes spin { 100% { transform: rotate(360deg); } }
+      .spin { animation: spin 1s linear infinite; }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{
+  "name": "downtik",
+  "version": "1.0.0",
+  "description": "TikTok Video Downloader for macOS",
+  "main": "main.js",
+  "homepage": "https://github.com",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --mac",
+    "build:mac-on-linux": "docker run --rm --user $(id -u):$(id -g) -w /project -v ${PWD}:/project -v ~/.node-gyp:/root/.node-gyp electronuserland/builder:24 sh ./node_modules/.bin/electron-builder --mac"
+  },
+  "keywords": [],
+  "author": "Yanz TakeServer <yanz-tksrv@zohomail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "electron-updater": "^6.1.4"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.takeserver.downtik.mac",
+    "productName": "DownTik",
+    "executableName": "downtik",
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "antoneeh10",
+        "repo": "Downtik-Linux",
+        "vPrefixedTagName": true
+      }
+    ],
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.utilities"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
+    }
+  }
+}
+
