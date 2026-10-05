@@ -93,50 +93,49 @@ On the setup page, verify your personal account space under the **Owner** drop-d
 
 #### Step 4: Clicking the Create Fork Confirmation
 Keep the main branch copying option checked, scroll down to the absolute bottom of the setup options, and click the green **Create fork** confirmation button.
-![Create Fork Operation Submission](git-assets/screenshots/3.png)
 
 #### Step 5: Waiting for the Duplication Process
 A loading sync interface will prompt briefly while the cloud platform framework clones the remote repository file system into your user space.
-![Forking Initialization Loader](git-assets/screenshots/5.png)
+![Forking Initialization Loader](git-assets/screenshots/3.png)
 
 #### Step 6: Opening Your Forked Repository Home
 Once the cloning process finishes, you will be automatically redirected to your personal workspace project directory layout.
-![Forked Repository File Tree](git-assets/screenshots/6.png)
+![Forked Repository File Tree](git-assets/screenshots/5.png)
 
 #### Step 7: Opening the Actions Tab on Your Fork
 Click on the **Actions** tab located on the top navigation row bar of your personal forked repository home page.
-![Opening Actions Dashboard](git-assets/screenshots/7.png)
+![Opening Actions Dashboard](git-assets/screenshots/6.png)
 
 #### Step 8: Unlocking Workflow Restrictions
 Because this is a cloned project configuration, GitHub blocks action scripts by default. Click the large green statement block button to grant active execution privileges.
 
 #### Step 9: Accessing the Build Control Environment
 After granting access privileges, the workflow tracking engine clears into an active dashboard layout ready for run deployments.
-![Actions Enabled Dashboard](git-assets/screenshots/8.png)
+![Actions Enabled Dashboard](git-assets/screenshots/7.png)
 
 #### Step 10: Selecting the Build Target Module
 Under the action directory menu items listed on the left sidebar layout, look for the automated build modules and click on **"Build macOS DMG"**.
-![Source Workflows Framework](git-assets/screenshots/10.png)
+![Source Workflows Framework](git-assets/screenshots/8.png)
 
 #### Step 11: Launching the Automated Compiler Script
 Look towards the right-hand panel view and click the gray **"Run workflow"** toggle box. When the inner context card overlay prompts, click the green inner **"Run workflow"** confirmation button.
-![Deploying the Automated Compiler Run](git-assets/screenshots/11.png)
+![Deploying the Automated Compiler Run](git-assets/screenshots/9.png)
 
 #### Step 12: Monitoring the Cloud Runner Infrastructure Queue
 The newly triggered execution instance will dynamically append to your active runs listing row, initializing under a queued operation status flag.
-![Cloud Builder Infrastructure Processing Pipeline](git-assets/screenshots/12.png)
+![Cloud Builder Infrastructure Processing Pipeline](git-assets/screenshots/10.png)
 
 #### Step 13: Watching the Virtual Environment Compilation Execution
 The pipeline tracks real-time script outputs as the background virtual cloud server unpacks code dependencies and packages software frameworks.
-![Runner Task Processing Queue](git-assets/screenshots/13.png)
+![Runner Task Processing Queue](git-assets/screenshots/11.png)
 
 #### Step 14: Confirming Verified Success Execution Marks
 Wait around 1 to 2 minutes until all operational steps resolve completely into stable **green checkmarks** showing a success completion status.
-![Successful Compiler Run Verification Workspace](git-assets/screenshots/14.png)
+![Successful Compiler Run Verification Workspace](git-assets/screenshots/12.png)
 
 #### Step 15: Downloading and Extracting the Local Archive Folder Package
 Scroll down to the bottom of the successful run summary page to access the generated artifacts. Click the blue download asset bundle link named **DownTik-macOS-DMG** to download the package file. Locate the downloaded file `DownTik-macOS-DMG.zip` inside your system local file manager interface, right-click on it, and select **Extract** or **Extract to...**.
-![Extracting the Local Archive Container Package](git-assets/screenshots/15.png)
+![Extracting the Local Archive Container Package](git-assets/screenshots/13.png)
 
 The output extraction process creates a new target folder containing your compiled production-ready disk installer: **`DownTik-1.0.0-arm64.dmg`**!
 
