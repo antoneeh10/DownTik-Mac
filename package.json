@@ -32,7 +32,7 @@
       {
         "provider": "github",
         "owner": "antoneeh10",
-        "repo": "Downtik-Linux",
+        "repo": "DownTik-Mac",
         "vPrefixedTagName": true
       }
     ],
@@ -59,4 +59,3 @@
     }
   }
 }
-
