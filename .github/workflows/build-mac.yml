@@ -1,11 +1,14 @@
 name: Build macOS DMG
 
 on:
-  workflow_dispatch: # Membuat tombol manual "Run workflow" di halaman GitHub Actions
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: macos-latest # Menggunakan server komputer Mac asli milik GitHub
+    runs-on: macos-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -20,9 +23,7 @@ jobs:
         run: npm install
 
       - name: Build DMG
-        run: node node_modules/electron-builder/out/cli/cli.js --mac dmg
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node node_modules/electron-builder/out/cli/cli.js --mac dmg --publish never
 
       - name: Upload Installer DMG
         uses: actions/upload-artifact@v4
