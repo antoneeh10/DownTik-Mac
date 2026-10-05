@@ -93,7 +93,7 @@ Under the action directory menu structure, you can view the integrated automated
 
 #### Step 4: Forking the Project to Your Profile
 Click the **Fork** button located at the top-right corner of the main hub page. On the setup page, verify your personal **Owner** account profile, customize your destination repository name, keep the main branch tracking checked, and click the green **Create fork** button.
-![Create a New Fork Setup Panel](git-assets/screenshots/5.png)
+![Create a New Fork Setup Panel](git-assets/screenshots/1.png)
 
 #### Step 5: Waiting for the Duplication Process
 A synchronized loading interface screen will prompt while the cloud framework clones the repository structure into your profile space.
