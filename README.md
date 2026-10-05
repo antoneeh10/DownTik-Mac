@@ -81,19 +81,19 @@ System Clipboard Copy (TikTok URL) → Auto Detect → Fill Downloader
 
 #### Step 1: Navigating the Source Repository
 First, open the main public hub of the project at `https://github.com` to view the baseline file architecture layout.
-![Source Repository Interface](git-assets/screenshots/1.png)
+![Source Repository Interface](git-assets/screenshots/begin.png)
 
 #### Step 2: Initiating the Fork Action
 Click the **Fork** button located at the top-right corner of the main page header to pull up the replication configuration form.
-![Initiating the Fork Action](git-assets/screenshots/2.png)
+![Initiating the Fork Action](git-assets/screenshots/1.png)
 
 #### Step 3: Setting Up Your Personal Repository Name
 On the setup page, verify your personal account space under the **Owner** drop-down menu. Inside the **Repository name** field, type any folder name you prefer for your project workspace.
-![Configuring Fork Name Details](git-assets/screenshots/3.png)
+![Configuring Fork Name Details](git-assets/screenshots/2.png)
 
 #### Step 4: Clicking the Create Fork Confirmation
 Keep the main branch copying option checked, scroll down to the absolute bottom of the setup options, and click the green **Create fork** confirmation button.
-![Create Fork Operation Submission](git-assets/screenshots/4.png)
+![Create Fork Operation Submission](git-assets/screenshots/3.png)
 
 #### Step 5: Waiting for the Duplication Process
 A loading sync interface will prompt briefly while the cloud platform framework clones the remote repository file system into your user space.
