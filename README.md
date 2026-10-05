@@ -1,5 +1,11 @@
 # DownTik-Mac 🎬🔥
 
+Other version?
+look at
+[Windows](https://github.com/antoneeh10/DownTik-Windows)
+[Android](https://github.com/antoneeh10/DownTik-Android)
+[Linux](https://github.com/antoneeh10/DownTik-Linux)
+-----
 An Open Source TikTok Multimedia Downloader for macOS, built with **Electron** and powered by automated **GitHub Actions** workflows.
 
 ---
