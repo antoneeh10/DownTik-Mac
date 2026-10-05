@@ -32,7 +32,7 @@ An option bar placed next to the history button allows users to support the proj
 * **Donate Button:** Triggers an interactive dialog offering both local and international donation platforms:
   * 🇮🇩 **Saweria** (For Indonesian local e-wallets/QRIS)
   * 🌎 **SociaBuzz** (For international payment methods)
-  * *Developer Message:* `"berikan donasi untuk fitur baru aplikasi DownTik dan domain web. kalau gak ada, gakpapa, gak pemaksa kok :)"`
+  * *Developer Message:* `"berikan donasi untuk fitur baru aplikasi DownTik dan domain web. kalau gak ada, gakpapa, gak dipaksa kok :)"`
 * **See an Ads Confirmation:** Displays a native confirmation dialog before loading ad placements inside an isolated sandbox window, ensuring users are never forcefully redirected to an external browser.
 
 #### 🌐 Bilingual Support & Localization
@@ -80,64 +80,66 @@ System Clipboard Copy (TikTok URL) → Auto Detect → Fill Downloader
 ## 🎨 Visual Step-by-Step Guide: How to Fork, Build, and Download DownTik macOS Installer
 
 #### Step 1: Navigating the Source Repository
-Before creating your personal copy, you can explore the central hub by opening the main repository page and checking the baseline configuration layout.
-![Source Repository Interface](image_tZAyzi.png)
+First, open the main public hub of the project at `https://github.com` to view the baseline file architecture layout.
+![Source Repository Interface](git-assets/screenshots/1.png)
 
-#### Step 2: Accessing the Source Actions Pipeline
-Clicking on the **Actions** tab on the main repository page will show the default workflow landscape view.
-![Baseline Actions State](image_RYCxor.png)
+#### Step 2: Initiating the Fork Action
+Click the **Fork** button located at the top-right corner of the main page header to pull up the replication configuration form.
+![Initiating the Fork Action](git-assets/screenshots/2.png)
 
-#### Step 3: Checking Available Workflows
-Under the action directory menu structure, you can view the integrated automated build modules that have been prepared.
-![Source Workflows Framework](image_DIiC_R.png)
+#### Step 3: Setting Up Your Personal Repository Name
+On the setup page, verify your personal account space under the **Owner** drop-down menu. Inside the **Repository name** field, type any folder name you prefer for your project workspace.
+![Configuring Fork Name Details](git-assets/screenshots/3.png)
 
-#### Step 4: Forking the Project to Your Profile
-Click the **Fork** button located at the top-right corner of the main hub page. On the setup page, verify your personal **Owner** account profile, customize your destination repository name, keep the main branch tracking checked, and click the green **Create fork** button.
-![Create a New Fork Setup Panel](git-assets/screenshots/1.png)
+#### Step 4: Clicking the Create Fork Confirmation
+Keep the main branch copying option checked, scroll down to the absolute bottom of the setup options, and click the green **Create fork** confirmation button.
+![Create Fork Operation Submission](git-assets/screenshots/4.png)
 
 #### Step 5: Waiting for the Duplication Process
-A synchronized loading interface screen will prompt while the cloud framework clones the repository structure into your profile space.
-![Forking Initialization Loader](image_6Zxaoz.png)
+A loading sync interface will prompt briefly while the cloud platform framework clones the remote repository file system into your user space.
+![Forking Initialization Loader](git-assets/screenshots/5.png)
 
-#### Step 6: Viewing the Forked Repository Home
-Once the cloning process finishes, you will be redirected to your personal workspace directory file hierarchy layout.
-![Forked Repository File Tree](image_TSjLJg.png)
+#### Step 6: Opening Your Forked Repository Home
+Once the cloning process finishes, you will be automatically redirected to your personal workspace project directory layout.
+![Forked Repository File Tree](git-assets/screenshots/6.png)
 
-#### Step 7: Unlocking Workflow Restrictions
-Navigate to the **Actions** tab on your newly mirrored personal repository page. Click the large green confirmation block statement button to activate execution privileges.
-![Granting Actions Clearances Control](image_WX_CUe.png)
+#### Step 7: Opening the Actions Tab on Your Fork
+Click on the **Actions** tab located on the top navigation row bar of your personal forked repository home page.
+![Opening Actions Dashboard](git-assets/screenshots/7.png)
 
-#### Step 8: Initializing the Build Control Environment
-After granting access permissions, the build engine panel interface clears into an active structural state ready for pipeline deployment.
-![Actions Enabled Dashboard](image_TerhRp.png)
+#### Step 8: Unlocking Workflow Restrictions
+Because this is a cloned project configuration, GitHub blocks action scripts by default. Click the large green statement block button to grant active execution privileges.
+![Granting Actions Clearances Control](git-assets/screenshots/8.png)
 
-#### Step 9: Launching the Automated Compiler Script
-Select **"Build macOS DMG"** on the left sidebar menu layout. Look towards the right-hand panel view and click the gray **"Run workflow"** box toggle. When the inner overlay context card prompts, click the green **"Run workflow"** confirmation button.
-![Deploying the Automated Compiler Run](image_aVaofT.png)
+#### Step 9: Accessing the Build Control Environment
+After granting access privileges, the workflow tracking engine clears into an active dashboard layout ready for run deployments.
+![Actions Enabled Dashboard](git-assets/screenshots/9.png)
 
-#### Step 10: Monitoring the Cloud Runner Infrastructure Queue
-The newly triggered execution instance will dynamically append to the build listing array, switching state to a queued operation flag.
-![Cloud Builder Infrastructure Processing Pipeline](image_-n6FLa.png)
+#### Step 10: Selecting the Build Target Module
+Under the action directory menu items listed on the left sidebar layout, look for the automated build modules and click on **"Build macOS DMG"**.
+![Source Workflows Framework](git-assets/screenshots/10.png)
 
-#### Step 11: Watching the Virtual Environment Compilation Execution
-The pipeline transitions to a processing track state as the background virtual terminal processes build dependencies.
-![Runner Task Processing Queue](image_QkJsUx.png)
+#### Step 11: Launching the Automated Compiler Script
+Look towards the right-hand panel view and click the gray **"Run workflow"** toggle box. When the inner context card overlay prompts, click the green inner **"Run workflow"** confirmation button.
+![Deploying the Automated Compiler Run](git-assets/screenshots/11.png)
 
-#### Step 12: Confirming Verified Success Execution Marks
-Wait until the active operational tracking processes resolve completely into stable **green checkmarks** labeled with a success status string.
-![Successful Compiler Run Verification Workspace](image_-FUxZg.png)
+#### Step 12: Monitoring the Cloud Runner Infrastructure Queue
+The newly triggered execution instance will dynamically append to your active runs listing row, initializing under a queued operation status flag.
+![Cloud Builder Infrastructure Processing Pipeline](git-assets/screenshots/12.png)
 
-#### Step 13: Downloading the Production Bundle Asset Package
-Scroll down to the absolute bottom of the successful run summary page to access the generated workspace outputs. Click the blue download asset bundle link labeled **DownTik-macOS-DMG** to download the package file.
-![Artifact Package Summary Control](image_ZIsjVt.png)
+#### Step 13: Watching the Virtual Environment Compilation Execution
+The pipeline tracks real-time script outputs as the background virtual cloud server unpacks code dependencies and packages software frameworks.
+![Runner Task Processing Queue](git-assets/screenshots/13.png)
 
-#### Step 14: Extracting the Local Archive Folder Package
-Locate the downloaded file `DownTik-macOS-DMG.zip` inside your system local file manager interface, right-click on the icon block space, and select **Extract** or **Extract to...**.
-![Extracting the Local Archive Container Package](image_TJjMX-.png)
+#### Step 14: Confirming Verified Success Execution Marks
+Wait around 1 to 2 minutes until all operational steps resolve completely into stable **green checkmarks** showing a success completion status.
+![Successful Compiler Run Verification Workspace](git-assets/screenshots/14.png)
 
-#### Step 15: Executing the Native Standalone macOS DMG Disk Image
-The output process creates a new target folder directory containing your compiled production-ready disk asset installer: **`DownTik-1.0.0-arm64.dmg`**!
-![Production Standalone macOS DMG Disk Image Output](image_12v-TC.png)
+#### Step 15: Downloading and Extracting the Local Archive Folder Package
+Scroll down to the bottom of the successful run summary page to access the generated artifacts. Click the blue download asset bundle link named **DownTik-macOS-DMG** to download the package file. Locate the downloaded file `DownTik-macOS-DMG.zip` inside your system local file manager interface, right-click on it, and select **Extract** or **Extract to...**.
+![Extracting the Local Archive Container Package](git-assets/screenshots/15.png)
+
+The output extraction process creates a new target folder containing your compiled production-ready disk installer: **`DownTik-1.0.0-arm64.dmg`**!
 
 ---
 
@@ -147,18 +149,17 @@ To run and compile this application locally on your machine:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com
+   git clone https://github.com.git
    cd DownTik-Mac
-   ```
 2. Install the Node.js package dependencies:
-   ```bash
-   npm install
-   ```
-3. Boot the app in development mode:
-   ```bash
-   npm start
-   ```
-4. Compile and package the production .dmg file locally:
-```bash
-   bash npm run build    
+``` bash
+npm install
+```
+   3. Boot the app in development mode:
+   ``` bash
+npm start
+```
+   5. Compile and package the production `.dmg` file locally:
+```  bash
+npm run build
    ```
