@@ -141,13 +141,13 @@ The output extraction process creates a new target folder containing your compil
 
 ---
 
-## 🛠️ Local Development
+## 🛠️ Local Development (Darwin-Kernel Only)
 
 To run and compile this application locally on your machine:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com.git
+   git clone https://github.com.git](https://github.com/antoneeh10/DownTik-Mac
    cd DownTik-Mac
 2. Install the Node.js package dependencies:
 ``` bash
