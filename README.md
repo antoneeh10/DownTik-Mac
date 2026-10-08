@@ -1,4 +1,4 @@
-# DownTik-Mac 🎬🔥
+# DownTik Mac 🎬🔥
 
 Other version?
 look at
